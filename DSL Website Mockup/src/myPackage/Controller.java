@@ -11,46 +11,20 @@ public class Controller {
 	public static boolean RIGHT_TO_LEFT = false;
 
 	//Set minimum heights for the window (page width and a suitable accompanying minimum height)
-	private static final int windowWidth = 400;
+	public static final int windowWidth = 400;
 	private static final int windowHeight = 20;
 	private static final int headerHeight = 160;
 	private static final int footerHeight = 150;
-	private static final Color DSL_Dark = Color.decode("#bb0000");
 
-	private static void fillHeader(JPanel panel) {
-        panel.setBackground(DSL_Dark);
-        
-		ImageIcon logoIcon = new ImageIcon("images/logo.png");
-		JLabel logo = new JLabel(logoIcon);
-		panel.add(logo);
-		
-		ImageIcon loginIcon = new ImageIcon("images/loginicon.png");
-		JButton loginButton = new JButton(loginIcon);
-		panel.add(loginButton);		
-	}
-	
-	private static void fillBody(JPanel panel) {
-		JButton button = new JButton("Body");
-		button.setPreferredSize(new Dimension(windowWidth,200));
-		panel.add(button);
-	}
-	private static void fillFooter (JPanel panel) {
-        panel.setBackground(DSL_Dark);
 
-		JButton button = new JButton("Footer");
-		button.setPreferredSize(new Dimension(windowWidth,footerHeight));
-		panel.add(button);
-	}
-	
 	/**
-	 * ::From Oracle tutorial:: -Matti
+	 * :: This is from the Oracle tutorial on BorderLayout :: -Matti
 	 * 
 	 * Create the GUI and show it.  For thread safety,
 	 * this method should be invoked from the
 	 * event-dispatching thread.
 	 */
 
-	//Probably going to be obsolete but I don't want to delete this yet!
 	public static void setBasicLayout(Container body) {
 		// This method creates the JPanels for the header, body and footer, calls other methods to fill these panels
 		// and finally populates the body panels with the newly created Panels.
@@ -59,16 +33,19 @@ public class Controller {
 		JPanel bodyPanel = new JPanel();
 		JPanel footerPanel = new JPanel();
 
-		fillHeader(headerPanel);
-		fillBody(bodyPanel);
-		fillFooter(footerPanel);
+		/** These methods to set up the contents of the header, body and footer panels are
+		 * separated into another class for clarity.
+		 */
+		
+		fillPanel.fillFooter(footerPanel);
+		fillPanel.fillHeader(headerPanel);
+		fillPanel.fillBody(bodyPanel);
 		
 		bodyPanel.setPreferredSize(new Dimension(400,headerHeight));
-		
+				
 		body.add(headerPanel, BorderLayout.PAGE_START);
 		body.add(bodyPanel, BorderLayout.CENTER);
 		body.add(footerPanel, BorderLayout.PAGE_END);
-
 	}
 
 	private static void createAndShowGUI() {
