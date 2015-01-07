@@ -1,0 +1,200 @@
+package myPackage;
+import javax.swing.*;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+
+import java.awt.Component;
+import java.awt.FlowLayout;
+
+public class blank-site {
+	// Mandatory compliance to ensure layout is fully defined
+	public static boolean RIGHT_TO_LEFT = false;
+
+	//Set minimum heights for the window (page width and a suitable accompanying minimum height)
+	private static final int windowWidth = 400;
+	private static final int windowHeight = 20;
+	private static final int headerHeight = 160;
+	private static final int footerHeight = 150;
+	private static final Color DSL_Dark = Color.decode("#bb0000");
+	private static JPanel bodyPanel;
+	private static JButton loginButton;
+	private static JPanel body_1;
+	private static JPanel headerPanel;
+	private static JTextPane question3;
+
+	private static void fillHeader(JPanel panel) {
+        panel.setBackground(new Color(143, 188, 143));
+        
+		
+
+		ImageIcon logoIcon = new ImageIcon("images/logo.png");
+		headerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		JLabel logo = new JLabel(new ImageIcon(controller.class.getResource("/button/logo.png")));
+		panel.add(logo);
+		
+		ImageIcon loginIcon = new ImageIcon("images/loginicon.png");
+		loginButton = new JButton(new ImageIcon(controller.class.getResource("/button/loginicon.png")));
+		panel.add(loginButton);		
+	}
+	
+	private static void fillBody(JPanel panel) {
+	}
+	private static void fillFooter (JPanel panel) {
+        panel.setBackground(new Color(143, 188, 143));
+	}
+	
+	/**
+	 * ::From Oracle tutorial:: -Matti
+	 * 
+	 * Create the GUI and show it.  For thread safety,
+	 * this method should be invoked from the
+	 * event-dispatching thread.
+	 */
+
+	//Probably going to be obsolete but I don't want to delete this yet!
+	public static void setBasicLayout(Container body) {
+		// This method creates the JPanels for the header, body and footer, calls other methods to fill these panels
+		// and finally populates the body panels with the newly created Panels.
+		
+		headerPanel = new JPanel();
+		
+		bodyPanel = new JPanel();
+		JPanel footerPanel = new JPanel();
+
+		fillHeader(headerPanel);
+		fillBody(bodyPanel);
+		fillFooter(footerPanel);
+		
+		bodyPanel.setPreferredSize(new Dimension(400,headerHeight));
+		
+		body.add(headerPanel, BorderLayout.PAGE_START);
+		
+		JButton btnHome = new JButton("Home");
+		btnHome.setForeground(new Color(0, 0, 0));
+		headerPanel.add(btnHome);
+		
+		JButton btnNews = new JButton("News");
+		headerPanel.add(btnNews);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"About Us", "DSL risk", "Dalim  Basu"}));
+		comboBox.setToolTipText("");
+		comboBox.setMaximumRowCount(10);
+		headerPanel.add(comboBox);
+		
+		JButton btnService = new JButton("Service");
+		headerPanel.add(btnService);
+		
+		JButton btnRiskTool = new JButton("Risk Tool");
+		headerPanel.add(btnRiskTool);
+		
+		JButton btnNewButton = new JButton("Contact Us");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JTextPane question3 = new JTextPane();
+				question3.setEditable(false);
+		        question3.setBounds(200, 240, 800, 175);
+				question3.setContentType("text/html");
+				question3.setText("<html><body style='color:#000000', background-color:#ffffff'><h1>fuvk</h1>\n        <h2>DSL is a risk consulting company with IT Governance, Compliance, Security, Controls, Project Management & PMO experience.</h2>\n        <p>Expertise to:</p>\n        <ul>\n            <li>Assess business and IT needs, benefits and risks;</li>\n            <br><br><br> \n            <li>Deliver solutions, processes and tools;</li>\n            <br><br><br>\n            <li>Monitor risks, controls & performance of IT environments;</li>\n            <br><br><br>\n            <li>Ensure governance, compliance, security and assurance.</body></html>");
+				bodyPanel.add(question3);
+				bodyPanel.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{question3}));
+				
+			}
+		});
+		headerPanel.add(btnNewButton);
+		headerPanel.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{loginButton, btnHome, btnNews, comboBox, btnService, btnRiskTool, btnNewButton}));
+		body.add(bodyPanel, BorderLayout.CENTER);
+		
+	
+		
+		
+		JTextPane DSLrisk = new JTextPane();
+		DSLrisk.setEditable(false);
+        DSLrisk.setBounds(200, 240, 800, 175);
+		DSLrisk.setContentType("text/html");
+		DSLrisk.setText("<html><body style='color:#000000', background-color:#ffffff'><h1>IT Audit & Risk Management </h1>\n        <h2>DSL is a risk consulting company with IT Governance, Compliance, Security, Controls, Project Management & PMO experience.</h2>\n        <p>Expertise to:</p>\n        <ul>\n            <li>Assess business and IT needs, benefits and risks;</li>\n            <br><br><br> \n            <li>Deliver solutions, processes and tools;</li>\n            <br><br><br>\n            <li>Monitor risks, controls & performance of IT environments;</li>\n            <br><br><br>\n            <li>Ensure governance, compliance, security and assurance.</body></html>");
+		bodyPanel.add(DSLrisk);
+		bodyPanel.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{DSLrisk}));
+		
+		
+		
+
+		
+		
+		
+		body.add(footerPanel, BorderLayout.PAGE_END);
+				
+				JButton btnLegalStuff = new JButton("     Legal Stuff     ");
+				btnLegalStuff.setHorizontalAlignment(SwingConstants.LEFT);
+				footerPanel.add(btnLegalStuff);
+				
+				JButton btnCareers = new JButton("     Careers     ");
+				footerPanel.add(btnCareers);
+				
+				JButton btnPartners = new JButton("   Partners   ");
+				footerPanel.add(btnPartners);
+				
+				JButton btnSiteMap = new JButton("     Site Map          ");
+				btnSiteMap.setHorizontalAlignment(SwingConstants.RIGHT);
+				footerPanel.add(btnSiteMap);
+
+	}
+	
+
+
+	private static Container getContentPane() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private static void  createAndShowGUI() {
+		//This method creates the GUI and sets up the basic layout (header, body, footer)
+		//and makes the window as a whole scrollable.
+
+		//Create and set up the window.
+		JFrame frame = new JFrame("BorderLayoutDemo");
+		frame.setBackground(new Color(255, 255, 255));
+		frame.setMinimumSize(new Dimension(windowWidth,windowHeight));
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		body_1 = new JPanel();
+		// Set Layout to BorderLayout (as it is not standard for a JPanel)
+		body_1.setLayout(new BorderLayout());
+
+		//Set left-to-right orientation (avoiding magic numbers)
+		if (RIGHT_TO_LEFT) {
+			body_1.setComponentOrientation(
+					java.awt.ComponentOrientation.RIGHT_TO_LEFT);
+		}
+
+		// The contents of the individual panels are set up in the following function:
+		setBasicLayout (body_1);
+
+		//Set up scrollpane features
+		JScrollPane jsp = new JScrollPane(body_1);
+		frame.getContentPane().add(jsp);
+
+		//Display the window.
+		frame.pack();
+		frame.setVisible(true);
+	}
+	
+
+
+	public static void main(String[] args) {
+		//Schedule a job for the event-dispatching thread:
+		//creating and showing this application's GUI.
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				createAndShowGUI();
+			}
+		});
+	}
+}
