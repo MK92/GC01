@@ -24,6 +24,25 @@ import org.jsoup.select.Elements;
 
 public class fillPanel {
 	
+	//The MouseListener ml (for now) just prints out the label.
+	static MouseListener ml = new MouseListener() {
+		        @Override
+		        public void mouseReleased(MouseEvent e) {}
+		        
+		        @Override
+		        public void mousePressed(MouseEvent e) {
+		        	JLabel tempLabel = (JLabel) e.getSource();
+	                System.out.println(tempLabel.getText());
+		        }
+
+		        @Override
+		        public void mouseExited(MouseEvent e) {}
+		        @Override
+		        public void mouseEntered(MouseEvent e) {}
+		        @Override
+		        public void mouseClicked(MouseEvent e) {}
+		    };
+	
 	private static final int windowWidth = 400;
 	private static final int windowHeight = 20;
 	private static final int headerHeight = 200;
@@ -45,27 +64,7 @@ public class fillPanel {
 	}
 	
 	public static void fillBody(JPanel panel) throws IOException {
-		
-		//The MouseListener ml (for now) just prints out the label.
-		MouseListener ml = new MouseListener() {
-	        @Override
-	        public void mouseReleased(MouseEvent e) {}
-	        
-	        @Override
-	        public void mousePressed(MouseEvent e) {
-	        	JLabel tempLabel = (JLabel) e.getSource();
-                System.out.println(tempLabel.getText());
-	        }
 
-	        @Override
-	        public void mouseExited(MouseEvent e) {}
-	        @Override
-	        public void mouseEntered(MouseEvent e) {}
-	        @Override
-	        public void mouseClicked(MouseEvent e) {}
-	    };
-	    
-	    
 		panel.setLayout(new BorderLayout());
 	
 		//Create subPanel to allow multiple elements (clumsy in BorderLayout)
@@ -132,75 +131,45 @@ public class fillPanel {
 //		button.setPreferredSize(new Dimension(windowWidth,footerHeight));
 //		panel.add(button);
 		
-		JLabel label1 = new JLabel("1");
-		panel.add(label1);
-
-		label1 = new JLabel("2");
-		panel.add(label1);
-		label1 = new JLabel("3");
-		panel.add(label1);
-		JLabel label4 = new JLabel("4");
+		JLabel label = new JLabel("Careers");
+		label.addMouseListener(ml);
+		panel.add(label);
+		label = new JLabel("Legal Stuff");
+		label.addMouseListener(ml);
+		panel.add(label);
+		label = new JLabel("Partners");
+		label.addMouseListener(ml);
+		panel.add(label);
+		label = new JLabel("Site Map");
+		label.addMouseListener(ml);
+		panel.add(label);
 				
-		JButton startButton = new JButton("START");
-		startButton.setSize(50,70);
+//		JButton startButton = new JButton("START");
+//		startButton.setSize(50,70);
 
-		startButton.addActionListener(new ButtonListener());
-		panel.add(startButton);
-		JButton otherButton = new JButton("Button number two");
-		otherButton.addActionListener(new ButtonListener());
-		panel.add(otherButton);
+//		startButton.addActionListener(new ButtonListener());
+//		panel.add(startButton);
+//		JButton otherButton = new JButton("Button number two");
+//		otherButton.addActionListener(new ButtonListener());
+//		panel.add(otherButton);
 		
 		
-		panel.add(label1);
-		panel.add(label4);
 		
-		JButton button = new JButton("Contact Us");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println(button.getText());
-			}
-		});
-		panel.add(button);
-		
-		JButton button1 = new JButton("Careers");
-		button1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println(button1.getText());
-			}
-		});
-		panel.add(button1);
+//		JButton button = new JButton("Contact Us");
+//		button.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				System.out.println(button.getText());
+//			}
+//		});
+//		panel.add(button);
+//		
+//		JButton button1 = new JButton("Careers");
+//		button1.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				System.out.println(button1.getText());
+//			}
+//		});
+//		panel.add(button1);
 	}
 	
-	class LabelListener implements MouseListener {
-
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			System.out.println("Hello");
-		}
-
-		@Override
-		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-	}
 }
