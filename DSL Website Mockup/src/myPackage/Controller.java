@@ -18,6 +18,7 @@ public class Controller {
 	private static final int footerHeight = 150;
 
 
+
 	/**
 	 * :: This is from the Oracle tutorial on BorderLayout :: -Matti
 	 * 
@@ -50,7 +51,7 @@ public class Controller {
 		body.add(footerPanel, BorderLayout.PAGE_END);
 	}
 
-	private static void createAndShowGUI() throws IOException {
+	public static void createAndShowGUI() throws IOException {
 		//This method creates the GUI and sets up the basic layout (header, body, footer)
 		//and makes the window as a whole scrollable.
 
@@ -70,7 +71,7 @@ public class Controller {
 		}
 
 		// The contents of the individual panels are set up in the following function:
-		setBasicLayout (body);
+		setBasicLayout(body);
 
 		//Set up scrollpane features
 		JScrollPane jsp = new JScrollPane(body);
