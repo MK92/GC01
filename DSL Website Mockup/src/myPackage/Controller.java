@@ -39,11 +39,11 @@ public class Controller {
 		 * separated into another class for clarity.
 		 */
 		
-		fillPanel.fillFooter(footerPanel);
 		fillPanel.fillHeader(headerPanel);
 		fillPanel.fillBody(bodyPanel);
-		
-		bodyPanel.setPreferredSize(new Dimension(400,headerHeight));
+		fillPanel.fillFooter(footerPanel);
+
+		bodyPanel.setPreferredSize(new Dimension(windowWidth,headerHeight));
 				
 		body.add(headerPanel, BorderLayout.PAGE_START);
 		body.add(bodyPanel, BorderLayout.CENTER);

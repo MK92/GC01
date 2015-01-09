@@ -1,5 +1,6 @@
 package myPackage;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -32,6 +33,7 @@ public class fillPanel {
 	public static void fillHeader(JPanel panel) {
 		
 		panel.setBackground(DSL_Dark);
+		
         
 		ImageIcon logoIcon = new ImageIcon("images/logo.png");
 		JLabel logo = new JLabel(logoIcon);
@@ -40,35 +42,85 @@ public class fillPanel {
 		ImageIcon loginIcon = new ImageIcon("images/loginicon.png");
 		JButton loginButton = new JButton(loginIcon);
 		panel.add(loginButton);
-		
-
 	}
 	
 	public static void fillBody(JPanel panel) throws IOException {
 		
-//		JButton button1 = new JButton("Title1");
-//		button1.setPreferredSize(new Dimension((windowWidth/5),20));
-//		panel.add(button1);
-//		
-//		JButton button2 = new JButton ("Title2");
-//		panel.add(button2);
+		//The MouseListener ml (for now) just prints out the label.
+		MouseListener ml = new MouseListener() {
+	        @Override
+	        public void mouseReleased(MouseEvent e) {}
+	        
+	        @Override
+	        public void mousePressed(MouseEvent e) {
+	        	JLabel tempLabel = (JLabel) e.getSource();
+                System.out.println(tempLabel.getText());
+	        }
+
+	        @Override
+	        public void mouseExited(MouseEvent e) {}
+	        @Override
+	        public void mouseEntered(MouseEvent e) {}
+	        @Override
+	        public void mouseClicked(MouseEvent e) {}
+	    };
+	    
+	    
+		panel.setLayout(new BorderLayout());
+	
+		//Create subPanel to allow multiple elements (clumsy in BorderLayout)
+		JPanel subPanel = new JPanel();
 		
+		JLabel home = new JLabel("Home");
+		home.setPreferredSize(new Dimension((windowWidth/5),20));
+		home.addMouseListener(ml);
+		subPanel.add(home);
+		
+		JLabel about = new JLabel("About");
+		about.setPreferredSize(new Dimension((windowWidth/5),20));
+		subPanel.add(about);
+		about.addMouseListener(ml);
+		
+		JLabel services = new JLabel("Services");
+		services.setPreferredSize(new Dimension((windowWidth/5),20));
+		services.addMouseListener(ml);
+		subPanel.add(services);
+		
+		JLabel risk = new JLabel("Risk");
+		risk.setPreferredSize(new Dimension((windowWidth/5),20));
+		risk.addMouseListener(ml);
+		subPanel.add(risk);
+		
+		JLabel contact = new JLabel("Contact Us");
+		contact.setPreferredSize(new Dimension((windowWidth/5),20));
+		contact.addMouseListener(ml);
+		subPanel.add(contact);
+		
+		//Add subPanel to the BorderLayout (of the main body in this case, not the entire frame).
+	    panel.add(subPanel, BorderLayout.PAGE_START);
+		
+		
+		
+		
+		
+//		panel.add(button2, BorderLayout.PAGE_START);
+		
+		
+		
+		//This section reads the main body and puts it in a JTextPane
 		File input = new File("html/index.html");
 		Document doc = Jsoup.parse(input, "UTF-8", "");
 		
 		Elements htmlBody = doc.select("div#body");
 
-		String linkOuterH = htmlBody.outerHtml(); 
-		    // "<a href="http://example.com"><b>example</b></a>"
+		String stringBody = htmlBody.outerHtml(); 
 		
 		JTextPane bodyContent = new JTextPane();
 		bodyContent.setContentType("text/html");
-		bodyContent.setText(linkOuterH);
-		
-		panel.add(bodyContent);
-		
-		
-		
+		bodyContent.setText(stringBody);
+		bodyContent.setMinimumSize(new Dimension(windowWidth,400));
+		panel.add(bodyContent, BorderLayout.CENTER);
+
 	}
 	
 	public static void fillFooter(JPanel panel) {
