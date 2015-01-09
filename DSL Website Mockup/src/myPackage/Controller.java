@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.io.IOException;
 
 public class Controller {
 	// Mandatory compliance to ensure layout is fully defined
@@ -23,9 +24,10 @@ public class Controller {
 	 * Create the GUI and show it.  For thread safety,
 	 * this method should be invoked from the
 	 * event-dispatching thread.
+	 * @throws IOException 
 	 */
 
-	public static void setBasicLayout(Container body) {
+	public static void setBasicLayout(Container body) throws IOException {
 		// This method creates the JPanels for the header, body and footer, calls other methods to fill these panels
 		// and finally populates the body panels with the newly created Panels.
 		
@@ -48,7 +50,7 @@ public class Controller {
 		body.add(footerPanel, BorderLayout.PAGE_END);
 	}
 
-	private static void createAndShowGUI() {
+	private static void createAndShowGUI() throws IOException {
 		//This method creates the GUI and sets up the basic layout (header, body, footer)
 		//and makes the window as a whole scrollable.
 
@@ -84,7 +86,12 @@ public class Controller {
 		//creating and showing this application's GUI.
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				createAndShowGUI();
+				try {
+					createAndShowGUI();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 	}
