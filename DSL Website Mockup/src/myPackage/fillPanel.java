@@ -206,7 +206,7 @@ public class fillPanel {
 			        	// Read the text on the dummy label to get event name 'pageName' which refers to
 			        	// the page to be shown
 		                String pageName = tempLabel.getName();
-		                
+		                tempLabel.setForeground(Color.WHITE);
 		                mouseOver(pageName);
 
 		                /*
@@ -224,7 +224,7 @@ public class fillPanel {
 			        	// Read the text on the dummy label to get event name 'pageName' which refers to
 			        	// the page to be shown
 		                String pageName = tempLabel.getName();
-		                
+		                tempLabel.setForeground(Color.BLACK);
 		                mouseLeft(pageName);
 		                /*
 		                 * A simple method to complement the mouseEntered bit. Code to colour label
