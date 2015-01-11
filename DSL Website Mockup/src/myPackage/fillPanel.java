@@ -3,31 +3,21 @@ package myPackage;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
 import java.io.IOException;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class fillPanel {
-	
-	
-	
 	private static final int windowWidth = 700;
 	private static final int windowHeight = 500; //Minimum, not sure if necessary once everything is finished.
 	private static final int headerHeight = 160;
@@ -36,6 +26,9 @@ public class fillPanel {
 	boolean highlighted;
 	
 	
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	public static void fillHeader(JPanel panel) {
 		//Set up header
 		panel.setBackground(DSL_Dark);
@@ -44,7 +37,7 @@ public class fillPanel {
         // Add DSL logo
 		ImageIcon logoIcon = new ImageIcon("images/logo.png");
 		JLabel logo = new JLabel();
-		logo.setIcon(logoIcon);
+		logo.setIcon(new ImageIcon(fillPanel.class.getResource("/images/logo.png")));
 		panel.add(logo);
 		
 		//Add login button (note that this is a JLabel, not a JButton)
@@ -61,7 +54,10 @@ public class fillPanel {
 		//Set up main body of the page.
 		panel.setLayout(new BorderLayout());
 		
-		//Create navPanel to allow multiple elements (clumsy in BorderLayout)
+  		JTextPane bodyContent = new JTextPane();
+
+		
+		//Create navPanel to allow multiple elements (BorderLayout only allows a single element)
 		JPanel navPanel = new JPanel();
 		int numberOfLinks = 5;
 		int linkWidth = (windowWidth/numberOfLinks) - 5;
@@ -91,30 +87,68 @@ public class fillPanel {
 		risk.setName("risk");
 		navPanel.add(risk);
 		
+		class pageUpdater implements MouseListener {
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				bodyContent.setText("Hello");
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		}
+		
 		JLabel contact = new JLabel("Contact Us", SwingConstants.CENTER);
 		contact.setPreferredSize(new Dimension(linkWidth,20));
 		contact.addMouseListener(ml);
+		contact.addMouseListener(new pageUpdater());
 		contact.setName("contact");
 		navPanel.add(contact);
 		
-		//Add navPanel to the BorderLayout (of the main body in this case, not the entire frame).
+		
+		
+		// Add navPanel to the BorderLayout (of the main body in this case, not the entire frame).
 	    panel.add(navPanel, BorderLayout.PAGE_START);
 		
+	    // This section reads the main body and puts it in a JTextPane
+	    Document doc = Jsoup.connect("http://www.dslrisk.com/GA2/").get();
+	    String title = doc.title();
 	    
-		//This section reads the main body and puts it in a JTextPane
-		File input = new File("html/Home.html");
-		Document doc = Jsoup.parse(input, "UTF-8", "");
-		
-		Elements htmlBody = doc.select("div#body");
-		String stringBody = htmlBody.outerHtml(); 
-		
-		JTextPane bodyContent = new JTextPane();
-		bodyContent.setContentType("text/html");
-		bodyContent.setText(stringBody);
-		bodyContent.setMinimumSize(new Dimension(windowWidth,400));
-		panel.add(bodyContent, BorderLayout.CENTER);
+  		Elements htmlBody = doc.select("div#body");
+  		String stringBody = htmlBody.outerHtml(); 
+  		
+  		bodyContent.setName("bodyContent");
+  		bodyContent.setContentType("text/html");
+  		bodyContent.setText(stringBody);
+  		bodyContent.setMinimumSize(new Dimension(windowWidth,600));
+  		panel.add(bodyContent, BorderLayout.CENTER);
 
+  		
+  		
 	}
+	
 	
 	public static void fillFooter(JPanel panel) {
 		//Set up footer.
@@ -123,7 +157,6 @@ public class fillPanel {
 
 		//Add labels (links on actual site)
 		JLabel label = new JLabel("Careers");
-		label.setForeground(Color.white);
 		label.addMouseListener(ml);
 		label.setName("careers");
 		panel.add(label);
@@ -190,13 +223,19 @@ public class fillPanel {
 			        public void mousePressed(MouseEvent e) {
 			        	// Set up a dummy label to get info on the source of the event
 			        	JLabel tempLabel = (JLabel) e.getSource();
-			        	
 			        	// Read the text on the dummy label to get event name 'pageName' which refers to
 			        	// the page to be shown
 		                String pageName = tempLabel.getName();
+		                tempLabel.setText("Hello");
 			        	System.out.println("Page name is: " + pageName);
 			        	// Call this method to update the contents of the page only (leaving the header and footer as they are)
-		                UpdateBodyContents.changeText(pageName);
+		                try {
+							UpdateBodyContents.changeText(pageName);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+		                     
 			        }
 
 			        @Override
@@ -205,44 +244,19 @@ public class fillPanel {
 			        	JLabel tempLabel = (JLabel) e.getSource();
 			        	// Read the text on the dummy label to get event name 'pageName' which refers to
 			        	// the page to be shown
-		                String pageName = tempLabel.getName();
+		                tempLabel.setForeground(Color.WHITE);
 		                
-		                mouseOver(pageName);
-
-		                /*
-		                 * Code to colour label named 'pageName' a different shade
-		                 * This needs a simple if/else statement relating to the initial colour, as 
-		                 * some of the links are white text on green while others are black text on
-		                 * white
-		                 */
 			        }
 			        
 			        @Override
 			        public void mouseExited(MouseEvent e) {
 			        	// Set up a dummy label to get info on the source of the event
 			        	JLabel tempLabel = (JLabel) e.getSource();
-			        	// Read the text on the dummy label to get event name 'pageName' which refers to
-			        	// the page to be shown
-		                String pageName = tempLabel.getName();
-		                
-		                mouseLeft(pageName);
-		                /*
-		                 * A simple method to complement the mouseEntered bit. Code to colour label
-		                 * named 'pageName' back to normal
-		                 */
+		                tempLabel.setForeground(Color.BLACK);
 		                
 			        }
-			        
 			        @Override
 			        public void mouseClicked(MouseEvent e) {}
 			    };
-			    
-				public static void mouseOver(String pageName) {
-					System.out.println("Link " + pageName + " highlighted");
-				}
-				
-				public static void mouseLeft(String pageName) {
-					System.out.println("Link " + pageName + " reverted");
-			}
 	
 }

@@ -1,13 +1,28 @@
 package myPackage;
 
+import java.io.IOException;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 public class UpdateBodyContents {
 	/* This class contains things relevant to changing pages on the 'website'
 	 * At the moment this would be the methods changeText() and refreshWindow() to update the 
 	 * page contents and refresh the Swing app window, respectively.
 	 */
 	
-	public static void changeText(String pageName) {
+	public static void changeText(String pageName) throws IOException {
+		Document doc = Jsoup.connect("http://www.dslrisk.com/GA2/Contact Us").get();
+	    String title = doc.title();
+		
 		System.out.println("'" + pageName + "' is pageName.");
+		
+		//JPanel panel = (JPanel) g.getContentPane().getComponent(0);
+		//JLabel label = (JLabel) panel.getComponent(1);
+		
     	
 		/* Here we need code to set the text of the JTextPane in the body of the page.
 		 * In practice this will refer to the path 'html/*pageName*.html' as follows:

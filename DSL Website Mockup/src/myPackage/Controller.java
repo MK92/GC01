@@ -3,8 +3,10 @@ import javax.swing.*;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.io.IOException;
 
 public class Controller {
@@ -16,8 +18,6 @@ public class Controller {
 	private static final int windowHeight = 20;
 	private static final int headerHeight = 160;
 	private static final int footerHeight = 150;
-
-
 
 	/**
 	 * :: This is from the Oracle tutorial on BorderLayout :: -Matti
@@ -43,13 +43,18 @@ public class Controller {
 		fillPanel.fillHeader(headerPanel);
 		fillPanel.fillBody(bodyPanel);
 		fillPanel.fillFooter(footerPanel);
-
+		
 		bodyPanel.setPreferredSize(new Dimension(windowWidth,headerHeight));
 				
 		body.add(headerPanel, BorderLayout.PAGE_START);
 		body.add(bodyPanel, BorderLayout.CENTER);
 		body.add(footerPanel, BorderLayout.PAGE_END);
+		
+		System.out.println(bodyPanel.getComponentCount());
+		System.out.println(bodyPanel.getComponent(1).getName());
+		
 	}
+	
 
 	public static void createAndShowGUI() throws IOException {
 		//This method creates the GUI and sets up the basic layout (header, body, footer)
@@ -73,15 +78,17 @@ public class Controller {
 		// The contents of the individual panels are set up in the following function:
 		setBasicLayout(body);
 
+
 		//Set up scrollpane features
 		JScrollPane jsp = new JScrollPane(body);
 		frame.add(jsp);
-
+		
 		//Display the window.
 		frame.pack();
 		frame.setVisible(true);
 	}
-
+	
+	
 	public static void main(String[] args) {
 		//Schedule a job for the event-dispatching thread:
 		//creating and showing this application's GUI.
