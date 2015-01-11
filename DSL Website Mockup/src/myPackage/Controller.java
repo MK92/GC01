@@ -1,3 +1,16 @@
+/*
+ * GC01 Coursework 2014-2015
+ * Team 3 - Swing mockup of DSL Risk website
+ * 
+ * @authors Yueyang Chen, Hao Dong, Matti Konsala
+ * @version final
+ * 	
+ * 
+ * This Swing app is a high-fidelity mockup of a website to aid the web-design process.
+ * The project is completed as part of coursework for COMPGC01 - Introductoru Programming for
+ * the Financial Computing Master's at UCL
+ */
+
 package myPackage;
 import javax.swing.*;
 
@@ -6,8 +19,9 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.io.IOException;
 
+
 public class Controller {
-	// Mandatory compliance to ensure layout is fully defined
+	// Compliance to ensure layout is fully defined
 	public static boolean RIGHT_TO_LEFT = false;
 
 	//Set minimum heights for the window (page width and a suitable accompanying minimum height)
@@ -18,15 +32,12 @@ public class Controller {
 	public static final int windowHeight = headerHeight+bodyHeight+footerHeight;
 
 	/**
-	 * :: This is from the Oracle tutorial on BorderLayout :: -Matti
-	 * 
-	 * Create the GUI and show it.  For thread safety,
-	 * this method should be invoked from the
-	 * event-dispatching thread.
-	 * @throws IOException 
+	 * Sets the basic layout.
+	 *
+	 * @param wrapper The full page (header + body + footer)
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-
-	public static void setBasicLayout(Container body) throws IOException {
+	public static void setBasicLayout(Container wrapper) throws IOException {
 		// This method creates the JPanels for the header, body and footer, calls other methods to fill these panels
 		// and finally populates the body panels with the newly created Panels.
 		
@@ -34,7 +45,7 @@ public class Controller {
 		JPanel bodyPanel = new JPanel();
 		JPanel footerPanel = new JPanel();
 
-		/** These methods to set up the contents of the header, body and footer panels are
+		/* These methods to set up the contents of the header, body and footer panels are
 		 * separated into another class for clarity.
 		 */
 		
@@ -44,9 +55,9 @@ public class Controller {
 		
 		bodyPanel.setPreferredSize(new Dimension(windowWidth,400));
 				
-		body.add(headerPanel, BorderLayout.PAGE_START);
-		body.add(bodyPanel, BorderLayout.CENTER);
-		body.add(footerPanel, BorderLayout.PAGE_END);
+		wrapper.add(headerPanel, BorderLayout.PAGE_START);
+		wrapper.add(bodyPanel, BorderLayout.CENTER);
+		wrapper.add(footerPanel, BorderLayout.PAGE_END);
 		
 //		System.out.println(bodyPanel.getComponentCount());
 //		System.out.println(bodyPanel.getComponent(1).getName());
@@ -54,6 +65,12 @@ public class Controller {
 	}
 	
 
+	/**
+	 * Creates the JFrame, and sets up the body and JScrollPane to allow a scrollable BorderLayout for the window
+	 * 
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
+	
 	public static void createAndShowGUI() throws IOException {
 		//This method creates the GUI and sets up the basic layout (header, body, footer)
 		//and makes the window as a whole scrollable.
@@ -63,30 +80,31 @@ public class Controller {
 		frame.setMinimumSize(new Dimension(windowWidth,windowHeight));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		JPanel body = new JPanel();
+		JPanel wrapper = new JPanel();
 		// Set Layout to BorderLayout (as it is not standard for a JPanel)
-		body.setLayout(new BorderLayout());
+		wrapper.setLayout(new BorderLayout());
 
-		//Set left-to-right orientation (avoiding magic numbers)
+		// Set left-to-right orientation
 		if (RIGHT_TO_LEFT) {
-			body.setComponentOrientation(
+			wrapper.setComponentOrientation(
 					java.awt.ComponentOrientation.RIGHT_TO_LEFT);
 		}
 
 		// The contents of the individual panels are set up in the following function:
-		setBasicLayout(body);
+		setBasicLayout(wrapper);
 
-
-		//Set up scrollpane features
-		JScrollPane jsp = new JScrollPane(body);
+		// Set up scrollpane features
+		JScrollPane jsp = new JScrollPane(wrapper);
 		frame.add(jsp);
 		
-		//Display the window.
+		// Display the window.
 		frame.pack();
 		frame.setVisible(true);
 	}
 	
-	
+	/**
+	 * The main method.
+	 */
 	public static void main(String[] args) {
 		//Schedule a job for the event-dispatching thread:
 		//creating and showing this application's GUI.
@@ -95,8 +113,8 @@ public class Controller {
 				try {
 					createAndShowGUI();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
+					System.err.println("Something went wrong in creating the GUI");
 				}
 			}
 		});
