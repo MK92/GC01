@@ -2,11 +2,8 @@ package myPackage;
 import javax.swing.*;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.Frame;
 import java.io.IOException;
 
 public class Controller {
@@ -15,9 +12,10 @@ public class Controller {
 
 	//Set minimum heights for the window (page width and a suitable accompanying minimum height)
 	public static final int windowWidth = 400;
-	private static final int windowHeight = 20;
-	private static final int headerHeight = 160;
-	private static final int footerHeight = 150;
+	public static final int headerHeight = 160;
+	public static final int bodyHeight = 400;
+	public static final int footerHeight = 80;
+	public static final int windowHeight = headerHeight+bodyHeight+footerHeight;
 
 	/**
 	 * :: This is from the Oracle tutorial on BorderLayout :: -Matti
@@ -44,14 +42,14 @@ public class Controller {
 		fillPanel.fillBody(bodyPanel);
 		fillPanel.fillFooter(footerPanel);
 		
-		bodyPanel.setPreferredSize(new Dimension(windowWidth,headerHeight));
+		bodyPanel.setPreferredSize(new Dimension(windowWidth,400));
 				
 		body.add(headerPanel, BorderLayout.PAGE_START);
 		body.add(bodyPanel, BorderLayout.CENTER);
 		body.add(footerPanel, BorderLayout.PAGE_END);
 		
-		System.out.println(bodyPanel.getComponentCount());
-		System.out.println(bodyPanel.getComponent(1).getName());
+//		System.out.println(bodyPanel.getComponentCount());
+//		System.out.println(bodyPanel.getComponent(1).getName());
 		
 	}
 	

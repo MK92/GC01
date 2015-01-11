@@ -16,14 +16,19 @@ import javax.swing.SwingConstants;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-
+/**
+ * 
+ * @author Matti
+ *
+ */
 public class fillPanel {
-	private static final int windowWidth = 700;
-	private static final int windowHeight = 500; //Minimum, not sure if necessary once everything is finished.
-	private static final int headerHeight = 160;
-	private static final int footerHeight = 80;
+	public static final int windowWidth = 600;
+	public static final int headerHeight = 160;
+	public static final int bodyHeight = 400;
+	public static final int footerHeight = 80;
+	public static final int windowHeight = headerHeight+bodyHeight+footerHeight;
+
 	public static final Color DSL_Dark = Color.decode("#35615B");
-	boolean highlighted;
 	
 	
 	/**
@@ -116,8 +121,7 @@ public class fillPanel {
 			public void mouseReleased(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				
-			}
-			
+			}	
 		}
 		
 		JLabel contact = new JLabel("Contact Us", SwingConstants.CENTER);
@@ -126,8 +130,6 @@ public class fillPanel {
 		contact.addMouseListener(new pageUpdater());
 		contact.setName("contact");
 		navPanel.add(contact);
-		
-		
 		
 		// Add navPanel to the BorderLayout (of the main body in this case, not the entire frame).
 	    panel.add(navPanel, BorderLayout.PAGE_START);
@@ -144,8 +146,6 @@ public class fillPanel {
   		bodyContent.setText(stringBody);
   		bodyContent.setMinimumSize(new Dimension(windowWidth,600));
   		panel.add(bodyContent, BorderLayout.CENTER);
-
-  		
   		
 	}
 	
@@ -221,20 +221,19 @@ public class fillPanel {
 			        
 			        @Override
 			        public void mousePressed(MouseEvent e) {
-			        	// Set up a dummy label to get info on the source of the event
-			        	JLabel tempLabel = (JLabel) e.getSource();
-			        	// Read the text on the dummy label to get event name 'pageName' which refers to
-			        	// the page to be shown
-		                String pageName = tempLabel.getName();
-		                tempLabel.setText("Hello");
-			        	System.out.println("Page name is: " + pageName);
-			        	// Call this method to update the contents of the page only (leaving the header and footer as they are)
-		                try {
-							UpdateBodyContents.changeText(pageName);
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
+//			        	// Set up a dummy label to get info on the source of the event
+//			        	JLabel tempLabel = (JLabel) e.getSource();
+//			        	// Read the text on the dummy label to get event name 'pageName' which refers to
+//			        	// the page to be shown
+//		                String pageName = tempLabel.getName();
+//			        	System.out.println("Page name is: " + pageName);
+//			        	// Call this method to update the contents of the page only (leaving the header and footer as they are)
+//		                try {
+//							UpdateBodyContents.changeText(pageName);
+//						} catch (IOException e1) {
+//							// TODO Auto-generated catch block
+//							e1.printStackTrace();
+//						}
 		                     
 			        }
 
